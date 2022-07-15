@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  node:
+    image: node:16
+    container_name: api-services-contract
+    # terminal do container fique rodando em segundo plano
+    tty: true
+    stdin_open: true
+    # deixa o terminal atual acoplado ao container, direto no bash
+    command: bash
+    restart: always
+    working_dir: /app
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      MYSQL_HOST: db
+
+  db:
+    container_name: services-contract-db
+    image: mysql:8.0.21
+    restart: always
+    ports:
+      - 3310:3306
+      - 33061:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+networks:
+  default:
+    name: services-contract_net
+
