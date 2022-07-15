@@ -1,0 +1,20 @@
+on: [push, pull_request]
+
+jobs:
+  eslint:
+    runs-on: ubuntu-latest
+    steps:
+        - name: Fetch project repository
+          uses: actions/checkout@v2
+
+        - name: Setup NodeJS
+          uses: actions/setup-node@v1
+          with:
+            node-version: 14
+
+
+        - name: Install all dependencies
+          run: npm install
+
+        - name: Run lint to figure out for errors
+          run: npx eslint .
