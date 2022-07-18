@@ -17,4 +17,4 @@ jobs:
           run: npm install
 
         - name: Run lint to figure out for errors
-          run: npx eslint .
+          run: npx eslint . --ext .ts
