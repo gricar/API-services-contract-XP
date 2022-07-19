@@ -2,7 +2,7 @@ version: "3"
 
 services:
   node:
-    image: node:16
+    image: node:14
     container_name: api-services-contract
     # terminal do container fique rodando em segundo plano
     tty: true
@@ -16,20 +16,27 @@ services:
     depends_on:
       - db
     ports:
-      - 3000:3000
+      - 3002:3002
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
-      MYSQL_HOST: db
+      DB_USER: root
+      DB_PASS: password
+      DB_HOST: db
+      DB_PORT: 3306
 
   db:
     container_name: services-contract-db
     image: mysql:8.0.21
     restart: always
     ports:
-      - 3310:3306
+      - 3370:3306
     environment:
       MYSQL_ROOT_PASSWORD: password
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] # Deve aguardar o banco ficar operacional
+      timeout: 10s
+      retries: 5
+    cap_add:
+      - SYS_NICE # Deve omitir alertas menores
 
 networks:
   default:
