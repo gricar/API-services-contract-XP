@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import clientsRoute from './clients';
+import bankingRoute from './banking';
 
 const routes = Router();
 
-routes.use('/clients', clientsRoute);
+routes.use('/banking/conta', bankingRoute);
 
 routes.get('/', (_req, res) => res.send('Hello world'));
 

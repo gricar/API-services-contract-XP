@@ -1,8 +1,8 @@
-import Brokers from '../database/models/brokers';
-import Clients from '../database/models/clients';
-import BalanceClientsBroker from '../database/models/balance-clients-brokers';
+import Brokers from '../../database/models/brokers';
+import Clients from '../../database/models/clients';
+import BalanceClientsBroker from '../../database/models/balance-clients-brokers';
 
-export default class ClientsService {
+export default class BankingService {
   private model = BalanceClientsBroker;
 
   public async getAll() {
