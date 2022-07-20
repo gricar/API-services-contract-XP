@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import BankingService from '../service';
+import calculateNewBalance from '../utils/calculateNewBalance';
 
 class BankingController {
   constructor(private bankingService = new BankingService()) {}
@@ -21,7 +22,7 @@ class BankingController {
     return res.status(StatusCodes.NOT_FOUND).json({ message: "Client code doesn't exist" });
   };
 
-  public depositMoney = async (req: Request, res: Response) => {
+  public moneyTransaction = async (req: Request, res: Response) => {
     const { clientCode, amount } = req.body;
 
     const [clientExists] = await this.bankingService.getOne(Number(clientCode));
@@ -30,13 +31,17 @@ class BankingController {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Client code doesn't exist" });
     }
 
-    const newBalance = (Number(clientExists.balance) + amount);
+    const newBalance = calculateNewBalance(amount, Number(clientExists.balance), req.path);
 
-    await this.bankingService.depositMoney(Number(newBalance), clientCode);
+    await this.bankingService.updateBalance(Number(newBalance), clientCode);
 
     return res
       .status(StatusCodes.OK)
-      .json({ message: `Deposit in the amount of $${amount} was successful!` });
+      .json({
+        message: `${req.path.includes('saque')
+          ? 'Withdraw'
+          : 'Deposit'} in the amount of $${amount} was successful!`,
+      });
   };
 }
 

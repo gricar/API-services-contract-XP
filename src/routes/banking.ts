@@ -6,6 +6,8 @@ const banking = Router();
 
 banking.get('/', bankingController.getAll);
 banking.get('/:clientCode', bankingController.getOneClient);
-banking.post('/deposito', validateDeposit, bankingController.depositMoney);
+banking.use(validateDeposit);
+banking.post('/deposito', bankingController.moneyTransaction);
+banking.post('/saque', bankingController.moneyTransaction);
 
 export default banking;
