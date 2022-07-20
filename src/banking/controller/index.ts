@@ -10,6 +10,14 @@ class BankingController {
 
     return res.status(StatusCodes.OK).json(clients);
   };
+
+  public getOneClient = async (req: Request, res: Response): Promise<Response> => {
+    const { clientCode } = req.params;
+
+    const client = await this.bankingService.getOne(Number(clientCode));
+
+    return res.status(StatusCodes.OK).json(client);
+  };
 }
 
 export default new BankingController();
