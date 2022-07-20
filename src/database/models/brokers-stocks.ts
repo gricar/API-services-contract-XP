@@ -41,14 +41,14 @@ BrokersQtyStocks.init({
     allowNull: false,
   },
 }, {
-  underscored: true,
+  // underscored: true,
   sequelize: db,
-  modelName: 'brokersQtyStocks',
+  modelName: 'brokers_available_qty_stocks',
   timestamps: false,
 });
 
-BrokersQtyStocks.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'broker' });
-Brokers.hasMany(BrokersQtyStocks, { foreignKey: 'brokerId', as: 'broker' });
+BrokersQtyStocks.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'Broker' });
+Brokers.hasMany(BrokersQtyStocks, { foreignKey: 'brokerId', as: 'Broker' });
 
 BrokersQtyStocks.belongsTo(Stocks, { foreignKey: 'stockId', as: 'stock' });
 Stocks.hasMany(BrokersQtyStocks, { foreignKey: 'stockId', as: 'stock' });

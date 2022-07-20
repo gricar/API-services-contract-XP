@@ -4,9 +4,11 @@ import {
 import db from '.';
 
 class Stocks extends Model {
-  code!: number;
+  id!: number;
 
-  name!: string;
+  ticker!: string;
+
+  actualPrice!: number;
 }
 
 Stocks.init({
