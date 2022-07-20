@@ -30,4 +30,11 @@ export default class BankingService {
 
     return client;
   };
+
+  public depositMoney = async (balance: number, clientCode: number) => {
+    await this.model.update(
+      { balance },
+      { where: { clientCode } },
+    );
+  };
 }

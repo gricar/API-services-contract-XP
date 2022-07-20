@@ -21,16 +21,22 @@ class BankingController {
     return res.status(StatusCodes.NOT_FOUND).json({ message: "Client code doesn't exist" });
   };
 
-  public depositMoney = async (req: Request, res: Response): Promise<Response> => {
-    const { clientCode } = req.body;
+  public depositMoney = async (req: Request, res: Response) => {
+    const { clientCode, amount } = req.body;
 
-    const clientExists = await this.bankingService.getOne(Number(clientCode));
+    const [clientExists] = await this.bankingService.getOne(Number(clientCode));
 
-    if (clientExists.length === 0) {
+    if (!clientExists) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Client code doesn't exist" });
     }
 
-    return res.status(StatusCodes.OK).end('incompleto');
+    const newBalance = (Number(clientExists.balance) + amount);
+
+    await this.bankingService.depositMoney(Number(newBalance), clientCode);
+
+    return res
+      .status(StatusCodes.OK)
+      .json({ message: `Deposit in the amount of $${amount} was successful!` });
   };
 }
 
