@@ -44,7 +44,7 @@ BalanceClientsBrokers.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'balanceClientsBrokers',
+  modelName: 'clientsBalanceByBrokers',
   timestamps: false,
 });
 
