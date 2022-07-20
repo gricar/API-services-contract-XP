@@ -4,7 +4,7 @@ import db from '.';
 import Brokers from './brokers';
 import Clients from './clients';
 
-class ClientsBroker extends Model {
+class BalanceClientsBrokers extends Model {
   id!: number;
 
   client_code!: number;
@@ -14,7 +14,7 @@ class ClientsBroker extends Model {
   balance!: number;
 }
 
-ClientsBroker.init({
+BalanceClientsBrokers.init({
   id: {
     type: INTEGER,
     allowNull: false,
@@ -44,14 +44,14 @@ ClientsBroker.init({
 }, {
   underscored: true,
   sequelize: db,
-  modelName: 'clientsBrokers',
+  modelName: 'balanceClientsBrokers',
   timestamps: false,
 });
 
-ClientsBroker.belongsTo(Brokers, { foreignKey: 'broker_id', as: 'broker' });
-Brokers.hasMany(ClientsBroker, { foreignKey: 'broker_id', as: 'broker' });
+BalanceClientsBrokers.belongsTo(Brokers, { foreignKey: 'broker_id', as: 'broker' });
+Brokers.hasMany(BalanceClientsBrokers, { foreignKey: 'broker_id', as: 'broker' });
 
-ClientsBroker.belongsTo(Clients, { foreignKey: 'client_code', as: 'client' });
-Clients.hasMany(ClientsBroker, { foreignKey: 'client_code', as: 'client' });
+BalanceClientsBrokers.belongsTo(Clients, { foreignKey: 'client_code', as: 'client' });
+Clients.hasMany(BalanceClientsBrokers, { foreignKey: 'client_code', as: 'client' });
 
-export default ClientsBroker;
+export default BalanceClientsBrokers;
