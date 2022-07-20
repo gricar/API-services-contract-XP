@@ -8,7 +8,7 @@ export default class BankingService {
 
   public async getAll(): Promise<IClientBalance[]> {
     const allClients = await this.model.findAll({
-      attributes: ['client_code', 'balance'],
+      attributes: ['clientCode', 'balance'],
       include: [
         { model: Brokers, as: 'broker', attributes: ['name'] },
         { model: Clients, as: 'client', attributes: ['name'] },
@@ -20,8 +20,8 @@ export default class BankingService {
 
   public getOne = async (clientCode: number) => {
     const client = await this.model.findAll({
-      where: { client_code: clientCode },
-      attributes: ['client_code', 'balance'],
+      where: { clientCode },
+      attributes: ['clientCode', 'balance'],
       include: [
         { model: Brokers, as: 'broker', attributes: ['name'] },
         { model: Clients, as: 'client', attributes: ['name'] },

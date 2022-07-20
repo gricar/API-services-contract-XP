@@ -21,7 +21,7 @@ BalanceClientsBrokers.init({
     primaryKey: true,
     autoIncrement: true,
   },
-  client_code: {
+  clientCode: {
     type: INTEGER,
     allowNull: false,
     references: {
@@ -29,7 +29,7 @@ BalanceClientsBrokers.init({
       key: 'code',
     },
   },
-  broker_id: {
+  brokerId: {
     type: INTEGER,
     allowNull: false,
     references: {
@@ -48,10 +48,10 @@ BalanceClientsBrokers.init({
   timestamps: false,
 });
 
-BalanceClientsBrokers.belongsTo(Brokers, { foreignKey: 'broker_id', as: 'broker' });
-Brokers.hasMany(BalanceClientsBrokers, { foreignKey: 'broker_id', as: 'broker' });
+BalanceClientsBrokers.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'broker' });
+Brokers.hasMany(BalanceClientsBrokers, { foreignKey: 'brokerId', as: 'broker' });
 
-BalanceClientsBrokers.belongsTo(Clients, { foreignKey: 'client_code', as: 'client' });
-Clients.hasMany(BalanceClientsBrokers, { foreignKey: 'client_code', as: 'client' });
+BalanceClientsBrokers.belongsTo(Clients, { foreignKey: 'clientCode', as: 'client' });
+Clients.hasMany(BalanceClientsBrokers, { foreignKey: 'clientCode', as: 'client' });
 
 export default BalanceClientsBrokers;
