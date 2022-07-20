@@ -6,9 +6,9 @@ class BankingController {
   constructor(private bankingService = new BankingService()) {}
 
   public getAll = async (_req: Request, res: Response): Promise<Response> => {
-    const clientes = await this.bankingService.getAll();
+    const clients = await this.bankingService.getAll();
 
-    return res.status(StatusCodes.OK).json({ clientes });
+    return res.status(StatusCodes.OK).json(clients);
   };
 }
 
