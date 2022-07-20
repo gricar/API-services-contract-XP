@@ -16,7 +16,9 @@ class BankingController {
 
     const client = await this.bankingService.getOne(Number(clientCode));
 
-    return res.status(StatusCodes.OK).json(client);
+    if (client.length > 0) return res.status(StatusCodes.OK).json(client);
+
+    return res.status(StatusCodes.NOT_FOUND).json({ message: "Client code doesn't exist" });
   };
 }
 
