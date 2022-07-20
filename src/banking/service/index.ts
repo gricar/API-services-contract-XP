@@ -18,7 +18,7 @@ export default class BankingService {
     return allClients;
   };
 
-  public getOne = async (clientCode: number) => {
+  public getOne = async (clientCode: number): Promise<IClientBalance[]> => {
     const client = await this.model.findAll({
       where: { clientCode },
       attributes: ['clientCode', 'balance'],
