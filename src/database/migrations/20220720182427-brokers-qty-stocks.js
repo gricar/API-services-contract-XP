@@ -1,6 +1,6 @@
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('brokers_available_qty_stocks', {
+    await queryInterface.createTable('available_stocks_by_brokers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -34,6 +34,6 @@ module.exports = {
     });
   },
   down: async (queryInterface) => {
-    await queryInterface.dropTable('brokers_available_qty_stocks');
+    await queryInterface.dropTable('available_stocks_by_brokers');
   },
 };
