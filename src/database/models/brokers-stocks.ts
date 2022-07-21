@@ -24,7 +24,7 @@ BrokersQtyStocks.init({
     type: INTEGER,
     allowNull: false,
     references: {
-      model: 'broker',
+      model: 'brokers',
       key: 'id',
     },
   },
@@ -32,7 +32,7 @@ BrokersQtyStocks.init({
     type: INTEGER,
     allowNull: false,
     references: {
-      model: 'stock',
+      model: 'stocks',
       key: 'id',
     },
   },
@@ -47,10 +47,12 @@ BrokersQtyStocks.init({
   timestamps: false,
 });
 
-BrokersQtyStocks.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'Broker' });
-Brokers.hasMany(BrokersQtyStocks, { foreignKey: 'brokerId', as: 'Broker' });
+Brokers.belongsToMany(Stocks, {
+  through: BrokersQtyStocks, foreignKey: 'brokerId', as: 'stocks', otherKey: 'stockId',
+});
 
-BrokersQtyStocks.belongsTo(Stocks, { foreignKey: 'stockId', as: 'stock' });
-Stocks.hasMany(BrokersQtyStocks, { foreignKey: 'stockId', as: 'stock' });
+Stocks.belongsToMany(Brokers, {
+  through: BrokersQtyStocks, foreignKey: 'stockId', as: 'brokers', otherKey: 'brokerId',
+});
 
 export default BrokersQtyStocks;

@@ -1,10 +1,8 @@
 export interface IAssets {
-  availableQty: number,
-  broker?: {
+  ticker: string;
+  actualPrice: number;
+  brokers?: {
     name: string;
-  };
-  stock?: {
-    ticker: string;
-    actualPrice: string;
+    availableQty: number,
   };
 }
