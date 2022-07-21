@@ -5,8 +5,8 @@ import InvestmentsService from '../service';
 class InvestmentsController {
   constructor(private investmentsService = new InvestmentsService()) {}
 
-  public getAll = async (_req: Request, res: Response): Promise<Response> => {
-    const assets = await this.investmentsService.getAll();
+  public getAllAssets = async (_req: Request, res: Response): Promise<Response> => {
+    const assets = await this.investmentsService.getAllAssets();
 
     return res.status(StatusCodes.OK).json(assets);
   };

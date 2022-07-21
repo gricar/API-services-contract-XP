@@ -3,6 +3,6 @@ import investimentsController from '../investments/controller';
 
 const investments = Router();
 
-investments.get('/assets', investimentsController.getAll);
+investments.get('/assets', investimentsController.getAllAssets);
 
 export default investments;

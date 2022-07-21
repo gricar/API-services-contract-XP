@@ -6,7 +6,7 @@ import { IAssets } from '../interfaces/IAssets';
 export default class InvestmentsService {
   private model = BrokersQtyStocks;
 
-  public getAll = async (): Promise<IAssets[]> => {
+  public getAllAssets = async (): Promise<IAssets[]> => {
     const allAssets = await this.model.findAll({
       attributes: ['availableQty'],
       include: [
