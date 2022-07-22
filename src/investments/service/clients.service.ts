@@ -23,4 +23,34 @@ export default class ClientsService {
 
     return assetsByClient;
   };
+
+  public validateQtyFromWallet = async (
+    clientCode: number,
+    stockId: number,
+    qtySale: number,
+    brokerId: number,
+  ) => {
+    const clientStock = await this.model.findOne({
+      where: {
+        clientCode, brokerId, stockId,
+      },
+    });
+
+    if (!clientStock || clientStock.qty < qtySale) {
+      return { message: "It's not possible to sell more than you have in your wallet!" };
+    }
+
+    const newWalletQty = clientStock.qty - qtySale;
+
+    return { newWalletQty };
+  };
+
+  public updateClientStock = async (
+    clientCode: number,
+    brokerId: number,
+    stockId: number,
+    newWalletQty: number,
+  ) => {
+    await this.model.update({ qty: newWalletQty }, { where: { clientCode, brokerId, stockId } });
+  };
 }

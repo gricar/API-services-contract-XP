@@ -7,6 +7,7 @@ const investments = Router();
 investments.get('/assets', stocksController.getAllAssets);
 investments.get('/assets/:ticker', stocksController.getByTicker);
 investments.post('/buy', stocksController.buy);
+investments.post('/sell', stocksController.sell);
 investments.get('/assets/client/:clientCode', clientsController.getByClientCode);
 
 export default investments;

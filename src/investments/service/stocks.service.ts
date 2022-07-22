@@ -64,20 +64,23 @@ export default class StocksService {
     return { newBrokerQty, stockId };
   };
 
-  public updateTables = async (
-    clientCode: number,
-    stockId: number,
-    newBrokerQty: number,
-    qty: number,
+  public updateQtyTable = async (
+    newQty: number,
     brokerId: number,
+    stockId: number,
+  ) => {
+    await this.availableStocks.update({ availableQty: newQty }, { where: { brokerId, stockId } });
+  };
+
+  public create = async (
+    clientCode: number,
+    brokerId: number,
+    stockId: number,
+    qty: number,
     averagePrice: number,
   ) => {
-    await this.availableStocks.update({ availableQty: newBrokerQty }, { where: { id: brokerId } });
-
-    await this.clientsStocks.create(
-      {
-        clientCode, brokerId, stockId, qty, averagePrice,
-      },
-    );
+    await this.clientsStocks.create({
+      clientCode, brokerId, stockId, qty, averagePrice,
+    });
   };
 }
