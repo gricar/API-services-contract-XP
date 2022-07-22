@@ -1,6 +1,5 @@
 import { Model, INTEGER } from 'sequelize';
 import db from '.';
-import Brokers from './brokers';
 import Clients from './clients';
 import Stocks from './stocks';
 

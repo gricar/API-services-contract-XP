@@ -23,22 +23,31 @@ class StocksController {
 
   public buy = async (req: Request, res: Response): Promise<Response> => {
     const {
-      clientCode, ticker, qty, brokerId,
+      clientCode, ticker, qty, brokerId, averagePrice,
     } = req.body;
 
-    const availableQty = await this.stocksService.buy(clientCode, ticker, qty, brokerId);
+    const obj = await this.stocksService.validateQty(ticker, qty, brokerId);
 
-    if (!availableQty) {
+    if (!obj) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Ticker doesn't exist" });
     }
 
-    const { message } = availableQty;
+    const { message, newBrokerQty, stockId } = obj;
 
     if (message) {
       return res
         .status(StatusCodes.NOT_ACCEPTABLE)
         .json({ message });
     }
+
+    await this.stocksService.updateTables(
+      clientCode,
+      Number(stockId),
+      Number(newBrokerQty),
+      qty,
+      brokerId,
+      averagePrice,
+    );
 
     return res.status(StatusCodes.OK).json({ message: 'Compra realizada com sucesso' });
   };
