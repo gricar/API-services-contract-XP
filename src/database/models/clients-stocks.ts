@@ -58,19 +58,17 @@ ClientsStocks.init({
     allowNull: false,
   },
 }, {
-  underscored: true,
   sequelize: db,
-  modelName: 'clientsStocks',
+  modelName: 'clients_stocks',
   timestamps: false,
 });
 
-ClientsStocks.belongsTo(Clients, { foreignKey: 'clientCode', as: 'client' });
-Clients.hasMany(ClientsStocks, { foreignKey: 'clientCode', as: 'client' });
+Stocks.belongsToMany(Clients, {
+  through: ClientsStocks, foreignKey: 'stockId', as: 'Clients', otherKey: 'clientCode',
+});
 
-ClientsStocks.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'broker' });
-Brokers.hasMany(ClientsStocks, { foreignKey: 'brokerId', as: 'broker' });
-
-ClientsStocks.belongsTo(Stocks, { foreignKey: 'stockId', as: 'stock' });
-Stocks.hasMany(ClientsStocks, { foreignKey: 'stockId', as: 'stock' });
+Clients.belongsToMany(Stocks, {
+  through: ClientsStocks, foreignKey: 'clientCode', as: 'Stocks', otherKey: 'stockId',
+});
 
 export default ClientsStocks;
