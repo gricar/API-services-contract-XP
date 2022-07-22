@@ -6,6 +6,9 @@
   "scripts": {
     "lint": "eslint . --ext .ts",
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/server.ts",
+    "compose:donw": "docker-compose down",
+    "compose:up": "docker-compose up -d --build",
+    "start": "db:reset ",
     "db:reset": "npx tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
   },
   "repository": {
