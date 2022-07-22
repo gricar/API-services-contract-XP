@@ -26,7 +26,7 @@ class StocksController {
       clientCode, ticker, qty, brokerId, averagePrice,
     } = req.body;
 
-    const obj = await this.stocksService.validateQty(ticker, qty, brokerId);
+    const obj = await this.stocksService.validateQtyFromBroker(ticker, qty, brokerId);
 
     if (!obj) {
       return res.status(StatusCodes.NOT_FOUND).json({ message: "Ticker doesn't exist" });

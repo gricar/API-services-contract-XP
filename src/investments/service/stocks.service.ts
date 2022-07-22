@@ -44,12 +44,12 @@ export default class StocksService {
     return asset;
   };
 
-  public validateQty = async (ticker: string, qty: number, brokerId: number) => {
+  public validateQtyFromBroker = async (ticker: string, qty: number, brokerId: number) => {
     const tickerByBrokers = await this.getByTicker(ticker);
 
     if (!tickerByBrokers) return null;
 
-    const stockId = tickerByBrokers?.id;
+    const stockId = tickerByBrokers.id;
 
     const broker = await this.availableStocks.findOne({
       where: { brokerId, stockId },
