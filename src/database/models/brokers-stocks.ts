@@ -24,7 +24,7 @@ BrokersQtyStocks.init({
     type: INTEGER,
     allowNull: false,
     references: {
-      model: 'broker',
+      model: 'brokers',
       key: 'id',
     },
   },
@@ -32,7 +32,7 @@ BrokersQtyStocks.init({
     type: INTEGER,
     allowNull: false,
     references: {
-      model: 'stock',
+      model: 'stocks',
       key: 'id',
     },
   },
@@ -41,16 +41,18 @@ BrokersQtyStocks.init({
     allowNull: false,
   },
 }, {
-  underscored: true,
+  // underscored: true,
   sequelize: db,
-  modelName: 'brokersQtyStocks',
+  modelName: 'available_stocks_by_brokers',
   timestamps: false,
 });
 
-BrokersQtyStocks.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'broker' });
-Brokers.hasMany(BrokersQtyStocks, { foreignKey: 'brokerId', as: 'broker' });
+Brokers.belongsToMany(Stocks, {
+  through: BrokersQtyStocks, foreignKey: 'brokerId', as: 'stocks', otherKey: 'stockId',
+});
 
-BrokersQtyStocks.belongsTo(Stocks, { foreignKey: 'stockId', as: 'stock' });
-Stocks.hasMany(BrokersQtyStocks, { foreignKey: 'stockId', as: 'stock' });
+Stocks.belongsToMany(Brokers, {
+  through: BrokersQtyStocks, foreignKey: 'stockId', as: 'brokers', otherKey: 'brokerId',
+});
 
 export default BrokersQtyStocks;

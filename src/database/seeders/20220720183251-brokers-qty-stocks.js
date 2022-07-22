@@ -18,7 +18,7 @@ const stocksFromThirdBroker = generateTableInfo(3, 300000);
 module.exports = {
   up: async (queryInterface) => {
     await queryInterface.bulkInsert(
-      'brokers_available_qty_stocks',
+      'available_stocks_by_brokers',
       [
         ...stocksFromFirstBroker,
         ...stocksFromSecondBroker,
@@ -29,6 +29,6 @@ module.exports = {
   },
 
   down: async (queryInterface) => {
-    await queryInterface.bulkDelete('brokers_available_qty_stocks', null, {});
+    await queryInterface.bulkDelete('available_stocks_by_brokers', null, {});
   },
 };
