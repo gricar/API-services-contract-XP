@@ -8,6 +8,8 @@ export default class StocksService {
 
   private stocksModel = Stocks;
 
+  private availableStocks = BrokersQtyStocks;
+
   public getAllAssets = async (): Promise<IAssets[]> => {
     const assets = await this.stocksModel.findAll({
       include: [
@@ -26,7 +28,6 @@ export default class StocksService {
   public getByTicker = async (ticker: string): Promise<IAssets | null> => {
     const asset = await this.stocksModel.findOne({
       where: { ticker },
-      attributes: { exclude: ['id'] },
       include: [
         {
           model: Brokers,
@@ -38,5 +39,29 @@ export default class StocksService {
     });
 
     return asset;
+  };
+
+  public buy = async (clientCode: number, ticker: string, qty: number, brokerId: number) => {
+    const tickerByBrokers = await this.getByTicker(ticker);
+
+    const broker = await this.availableStocks.findOne({
+      where: { brokerId, stockId: tickerByBrokers?.id },
+    });
+
+    if (!broker) return null;
+
+    if (broker.availableQty < qty) {
+      return { message: "It's not possible to buy this quantity!" };
+    }
+
+    const newBrokerQty = broker.availableQty - qty;
+
+    this.updateTables(newBrokerQty, broker.id);
+
+    return true;
+  };
+
+  private updateTables = async (newBrokerQty: number, brokerId: number) => {
+    await this.availableStocks.update({ availableQty: newBrokerQty }, { where: { id: brokerId } });
   };
 }
