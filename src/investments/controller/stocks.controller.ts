@@ -75,14 +75,14 @@ class StocksController {
       brokerId,
     );
 
-    const { message, newWalletQty } = isAllowToSale;
+    const { message, newWalletQty, newBrokerQty } = isAllowToSale;
 
     if (message) {
       return res.status(StatusCodes.NOT_ACCEPTABLE).json({ message });
     }
 
     await this.stocksService.updateQtyTable(
-      Number(newWalletQty),
+      Number(newBrokerQty),
       brokerId,
       Number(stockId),
     );
