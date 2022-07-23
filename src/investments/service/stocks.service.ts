@@ -55,7 +55,9 @@ export default class StocksService {
       where: { brokerId, stockId },
     });
 
-    if (!broker || broker.availableQty < qty) {
+    if (!broker) return { message: 'Invalid data!' };
+
+    if (broker.availableQty < qty) {
       return { message: "It's not possible to buy this quantity!" };
     }
 
