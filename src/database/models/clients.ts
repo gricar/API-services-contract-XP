@@ -1,10 +1,13 @@
 import { Model, INTEGER, STRING } from 'sequelize';
 import db from '.';
+import { IBroker } from '../../banking/interfaces/IClientBalance';
 
 class Clients extends Model {
   code!: number;
 
   name!: string;
+
+  brokers!: IBroker[];
 }
 
 Clients.init({
