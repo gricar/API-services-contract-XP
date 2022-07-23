@@ -41,7 +41,6 @@ BrokersQtyStocks.init({
     allowNull: false,
   },
 }, {
-  // underscored: true,
   sequelize: db,
   modelName: 'available_stocks_by_brokers',
   timestamps: false,

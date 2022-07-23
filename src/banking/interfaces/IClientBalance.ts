@@ -1,10 +1,13 @@
+export interface IBrokerBalance {
+  id?: number;
+  name: string;
+  clientsBalanceByBrokers: {
+    balance: number;
+  }
+}
+
 export interface IClientBalance {
-  client_code: number,
-  balance: number,
-  broker?: {
-    name: string;
-  };
-  client?: {
-    name: string;
-  };
+  code: number;
+  name: string;
+  brokers: IBrokerBalance[];
 }

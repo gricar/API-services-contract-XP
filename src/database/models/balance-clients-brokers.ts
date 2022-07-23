@@ -1,6 +1,5 @@
 import { Model, INTEGER, DECIMAL } from 'sequelize';
 import db from '.';
-// eslint-disable-next-line import/no-cycle
 import Brokers from './brokers';
 import Clients from './clients';
 
@@ -48,10 +47,12 @@ BalanceClientsBrokers.init({
   timestamps: false,
 });
 
-BalanceClientsBrokers.belongsTo(Brokers, { foreignKey: 'brokerId', as: 'broker' });
-Brokers.hasMany(BalanceClientsBrokers, { foreignKey: 'brokerId', as: 'broker' });
+Brokers.belongsToMany(Clients, {
+  through: BalanceClientsBrokers, foreignKey: 'brokerId', as: 'client', otherKey: 'clientCode',
+});
 
-BalanceClientsBrokers.belongsTo(Clients, { foreignKey: 'clientCode', as: 'client' });
-Clients.hasMany(BalanceClientsBrokers, { foreignKey: 'clientCode', as: 'client' });
+Clients.belongsToMany(Brokers, {
+  through: BalanceClientsBrokers, foreignKey: 'clientCode', as: 'brokers', otherKey: 'brokerId',
+});
 
 export default BalanceClientsBrokers;
