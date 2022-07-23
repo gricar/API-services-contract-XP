@@ -68,7 +68,7 @@ export default class StocksService {
     newQty: number,
     brokerId: number,
     stockId: number,
-  ) => {
+  ): Promise<void> => {
     await this.availableStocks.update({ availableQty: newQty }, { where: { brokerId, stockId } });
   };
 
@@ -78,7 +78,7 @@ export default class StocksService {
     stockId: number,
     qty: number,
     averagePrice: number,
-  ) => {
+  ): Promise<void> => {
     await this.clientsStocks.create({
       clientCode, brokerId, stockId, qty, averagePrice,
     });

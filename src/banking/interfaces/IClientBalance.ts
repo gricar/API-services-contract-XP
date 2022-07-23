@@ -1,4 +1,4 @@
-export interface IBroker {
+export interface IBrokerBalance {
   id?: number;
   name: string;
   clientsBalanceByBrokers: {
@@ -9,5 +9,5 @@ export interface IBroker {
 export interface IClientBalance {
   code: number;
   name: string;
-  brokers: IBroker[];
+  brokers: IBrokerBalance[];
 }

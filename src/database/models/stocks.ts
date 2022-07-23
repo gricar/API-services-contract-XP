@@ -2,6 +2,7 @@ import {
   Model, DECIMAL, INTEGER, STRING,
 } from 'sequelize';
 import db from '.';
+import { IBroker } from '../../investments/interfaces/IAssets';
 
 class Stocks extends Model {
   id!: number;
@@ -9,6 +10,8 @@ class Stocks extends Model {
   ticker!: string;
 
   actualPrice!: number;
+
+  brokers!: IBroker[];
 }
 
 Stocks.init({
