@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "lint": "eslint . --ext .ts",
+    "compose:down": "docker-compose down",
+    "compose:up": "docker-compose up -d --build",
+    "db:reset": "npx tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "dev": "ts-node-dev --respawn --pretty --transpile-only src/server.ts",
-    "db:reset": "npx tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all"
+    "prestart": "docker exec -it api-services-contract bash"
   },
   "repository": {
     "type": "git",
