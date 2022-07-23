@@ -28,6 +28,8 @@ class BankingController {
   public moneyTransaction = async (req: Request, res: Response): Promise<Response> => {
     const { clientCode, amount, brokerId } = req.body;
 
+    const isWithdraw = req.path.includes('saque');
+
     const clientExists = await this.bankingService.getOne(Number(clientCode));
 
     if (!clientExists) {
@@ -37,13 +39,23 @@ class BankingController {
     const { brokers } = clientExists;
 
     let newBalance = 0;
+    let isProhibited = true;
 
     brokers.forEach((broker: IBrokerBalance) => {
       if (broker.id === brokerId) {
         const actualBalance = Number(broker.clientsBalanceByBrokers.balance);
-        newBalance = calculateNewBalance(amount, actualBalance, req.path);
+
+        isProhibited = amount > actualBalance;
+
+        newBalance = calculateNewBalance(amount, actualBalance, isWithdraw);
       }
     });
+
+    if (isProhibited && isWithdraw) {
+      return res
+        .status(StatusCodes.NOT_ACCEPTABLE)
+        .json({ message: "It's not allowed to withdraw this amount!" });
+    }
 
     await this.bankingService.updateBalance(Number(newBalance), clientCode, brokerId);
 
