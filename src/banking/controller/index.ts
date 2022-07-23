@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-import { IBroker } from '../interfaces/IClientBalance';
+import { IBrokerBalance } from '../interfaces/IClientBalance';
 import BankingService from '../service';
 import calculateNewBalance from '../utils/calculateNewBalance';
 
@@ -38,7 +38,7 @@ class BankingController {
 
     let newBalance = 0;
 
-    brokers.forEach((broker: IBroker) => {
+    brokers.forEach((broker: IBrokerBalance) => {
       if (broker.id === brokerId) {
         const actualBalance = Number(broker.clientsBalanceByBrokers.balance);
         newBalance = calculateNewBalance(amount, actualBalance, req.path);
@@ -54,6 +54,16 @@ class BankingController {
           ? 'Withdraw'
           : 'Deposit'} in the amount of $${amount} was successful!`,
       });
+  };
+
+  public authenticate = async (req: Request, res: Response): Promise<Response> => {
+    const token = await this.bankingService.authenticate(req.body);
+
+    if (token) {
+      return res.status(StatusCodes.OK).json({ token });
+    }
+
+    return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Username invalid' });
   };
 }
 
