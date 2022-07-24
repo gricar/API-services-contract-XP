@@ -1,19 +1,26 @@
-# Bem-vindo ao projeto API de contratos de serviços financeiros da XP !
+# Bem-vindo a API de contratos de serviços financeiros da XP !
 
 ### Descrição
-É uma aplicação que representa operações de investimento de ações do mercado financeiro e com algumas funcionalidades de uma conta digital.
+> É uma aplicação que representa operações de investimento de ações do mercado financeiro e com algumas funcionalidades de uma conta digital.
 
 <details>
   <summary><strong>Principais funcionalidades ✨</strong></summary>
 
-  As principais responsabilidade desta API são de realizar a integração com um banco de dados, seguindo os princípios do REST, com as requisições feitas baseados nos endpoints, podendo:
-  1. Enviar ordens de compra/venda de ativos disponíveis nas corretoras;
-  2. Listar todos ativos relacionados as corretoras e quantidade disponíveis para negociação;
-  3. Listar os ativos da carteira de investimento do cliente; 
-  4. Listar as corretoras que tenham disponíveis o ativo procurado;
-  5. Consultar o saldo da conta corrente por cliente;
-  6. Listar de todos clientes os saldos e suas correspondentes corretoras;
-  7. Realizar depósitos/saque da conta corrente.
+  > As principais responsabilidade desta API estão relacionadas a integração com o banco de dados, seguindo os princípios do REST, com as requisições feitas baseados nos *endpoints*:
+  
+  | Caminho | Responsabilidade |
+  |---|---|
+  | `/investments/assets` | Listar todos ativos relacionados as corretoras e quantidade disponíveis para negociação |
+  | `/investments/assets/:ticker` | Lista o ativo e as respectivas corretoras que tenham disponíveis para negociação |
+  | `/investments/assets/client/:code` | Lista todos ativos da carteira do cliente nas respectivas corretoras |
+  | `/investments/buy` | Enviar ordem de compra do ativo |
+  | `/investments/sell` | Enviar ordem de venda do ativo |
+  | `/banking/conta` | Listar de todos clientes os saldos e suas correspondentes corretoras |
+  | `/banking/conta/:clientCode` | Lista o cliente e os respectivos saldos em suas corretoras |
+  | `/banking/conta/deposito` | Realizar depósito na conta corrente |
+  | `/banking/conta/saque` | Realizar saque da conta corrente |
+  | `/login` | Realizar *login* na aplicação para gerar o token de autenticação |
+  
 </details>
 
 <details>
@@ -52,6 +59,8 @@
   - Após um tempo, os contêineres estarão prontos e você poderá acessar o projeto em: http://localhost:3002
 
   - Para desligar os containers, utilize o script: `npm run compose:down`
+  
+  ***Obs**: A aplicação contém dados fictícios de usuários, ativos financeiros e saldos bancários*.
 </details>
 
 <details>
