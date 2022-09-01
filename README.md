@@ -69,7 +69,7 @@
   1. Definir a linguagem de programação para desenvolvimento da aplicação (`TypeScript`).
   2. Optado por utilizar contêineres (`Docker`) para criar ambientes isolados dentro de um servidor.
   3. Utilizado o `ESLint` para padronização do código e redução de erros. É feito uma validação no código sempre que tem-se um novo _pull request_ ou _push_ na branch.
-  4. Estruturar o DER (Diagrama de Entidade e Relacionamento) da aplicação baseado nas variáveis que cada tabela poderia ter.
+  4. Estruturar o [`DER`](https://drawsql.app/teams/trybe-17/diagrams/desafio-tecnico-xp) (Diagrama de Entidade e Relacionamento) da aplicação baseado nas variáveis que cada tabela poderia ter.
   6. Desenvolver a aplicação utilizando POO (Programação Orientada a Objeto) e ORM (Mapeamento de Objeto-Relacional). 
   7. Arquitura MSC (_Models_ - _Services_ - _Controllers_).
   8. Biblioteca para tratamento de erros (`express-async-errors`).
